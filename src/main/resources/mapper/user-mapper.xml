@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.book_shop.user.mapper.UserMapper">
+    <resultMap id="user" type="UserDTO">
+        <id column="USER_ID" property="userId"/>
+        <result column="USER_NAME" property="userName"/>
+        <result column="USER_PW" property="userPw"/>
+        <result column="USER_EMAIL" property="userEmail"/>
+        <result column="USER_TEL" property="userTel"/>
+        <result column="USER_ROLL" property="userRoll"/>
+        <result column="IS_USING" property="isUsing"/>
+        <result column="JOIN_DATE" property="joinDate"/>
+    </resultMap>
+
+
+    <insert id="join">
+        INSERT INTO SHOP_USER (
+            USER_ID
+            , USER_PW
+            , USER_NAME
+            , USER_EMAIL
+            , USER_TEL
+        ) VALUES (
+            #{userId}
+            ,#{userPw}
+            ,#{userName}
+            ,#{userEmail}
+            ,#{userTel}
+        )
+    </insert>
+
+    <!--회원 아이디 중복 확인-->
+    <select id="checkUserId" resultType="String">
+        SELECT USER_ID
+        FROM SHOP_USER
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <!--로그인-->
+    <select id="login" resultMap="user">
+        SELECT USER_ID
+            , USER_NAME
+            , USER_ROLL
+        FROM SHOP_USER
+        WHERE USER_ID = #{userId}
+        AND USER_PW = #{userPw}
+    </select>
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

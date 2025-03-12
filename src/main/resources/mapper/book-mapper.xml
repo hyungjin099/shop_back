@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+
+<!--BOOK_CATEGORY, BOOK 두 테이블과 관련된 쿼리는 여기서 작성!-->
+<mapper namespace="com.green.book_shop.book.mapper.BookMapper">
+    <!--resultMap : 쿼리 결과 데이터를 자바로 가져올 형태를 구성-->
+    <resultMap id="bookCategory" type="BookCategoryDTO">
+        <id column="CATE_CODE" property="cateCode"/>
+        <result column="CATE_NAME" property="cateName"/>
+    </resultMap>
+
+    <!--도서 카테고리 목록 조회-->
+    <select id="selectCategoryList" resultMap="bookCategory">
+        SELECT CATE_CODE
+            , CATE_NAME
+        FROM BOOK_CATEGORY
+        ORDER BY CATE_CODE
+    </select>
+
+    <!--도서 등록 쿼리-->
+    <insert id="insertBook" >
+        INSERT INTO BOOK (
+            BOOK_NAME
+            , BOOK_PRICE
+            , PUBLISHER
+            , BOOK_INFO
+            , CATE_CODE
+        ) VALUES (
+            #{bookName}
+            , #{bookPrice}
+            , #{publisher}
+            , #{bookInfo}
+            , #{cateCode}
+        )
+    </insert>
+
+    <!--카테고리명 중복 확인-->
+    <select id="isUsableCateName" resultType="String">
+        SELECT CATE_NAME
+        FROM BOOK_CATEGORY
+        WHERE CATE_NAME = #{cateName}
+    </select>
+
+    <!--카테고리 등록-->
+    <insert id="insertCategory">
+        INSERT INTO BOOK_CATEGORY (
+            CATE_NAME
+        ) VALUES (
+            #{cateName}
+        )
+    </insert>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
